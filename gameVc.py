@@ -3,10 +3,9 @@ import tkinter as tk
 
 
 # CONSTANTS
-SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 1200
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 1000
 SCREEN_TITLE = "PNC Data structure to graphism"
-
 
 
 # VARIABLES
@@ -27,7 +26,7 @@ grid =[
 index = 0
 
 # squareSize = #choose the appropriate size of the squares
-image = tk.PhotoImage(file='home/it-admin/desktop/sophea_suon_game/female.png')
+
 
 # VARIABLES
 def arrayToDrawing(grid):
@@ -35,19 +34,19 @@ def arrayToDrawing(grid):
     for n in range (len(grid)):
         for i in range (len(grid[n])):
             x0 = i*50
-            y0 = n*50
+            y0 = (n*50)+200
             x1 = x0+50
             y1 = y0+50
             if grid[n][i] == 1:
-                canvas.create_image(x0, y0, x1, y1, image=image)
+                canvas.create_image(x0+20, y0+20,image=imageF)
             elif grid[n][i] == 2:
-                canvas.create_rectangle(x0, y0, x1, y1, fill="red")
+                canvas.create_image(x0+25, y0+25, image=imageW)
             elif grid[n][i] == 3:
-                canvas.create_rectangle(x0, y0, x1, y1, fill="green")
+                canvas.create_oval(x0+15, y0+15, x1-15, y1-15, fill="#fd79a8", outline="white")
             elif grid[n][i] == "b":
-                canvas.create_oval(x0, y0, x1, y1, fill="yellow")
+                canvas.create_image(x0+25, y0+25, image=imageB)
             else:
-                canvas.create_rectangle(x0, y0, x1, y1, fill="white")
+                canvas.create_rectangle(x0, y0, x1, y1, fill="white", outline="white")
 
 def getPlayerPosition(grid):
     for n in range (len(grid)):
@@ -124,8 +123,13 @@ def down(event):
         
 # draw a line with white and black squares using the global array
 root = tk.Tk()
+imageF = tk.PhotoImage(file="female(1).png")
+imageW = tk.PhotoImage(file="wall.png")
+imageB = tk.PhotoImage(file="box.png")
+# imageB = tk.PhotoImage(file="box.png")
 root.geometry(str(SCREEN_WIDTH)+"x"+str(SCREEN_HEIGHT))
 canvas = tk.Canvas(root,bg="white")
+
 # root.resizable(False, False)
 canvas.pack(expand=True, fill="both")
 root.bind("<Left>", left)
@@ -135,6 +139,4 @@ root.bind("<Down>", down)
 
 
 arrayToDrawing(grid)
-
-
 root.mainloop()
